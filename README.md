@@ -1,5 +1,4 @@
 TaskyXPz
-
 TaskyXPz is a simple task management application built with HTML, CSS, and JavaScript.
 
 The project was created to practice fundamental front-end development concepts, including DOM manipulation, event handling, local storage, and project organization. Users can create tasks, complete them, and earn XP points to track progress and stay motivated.
