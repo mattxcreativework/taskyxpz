@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TaskyXPz</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main>
+    <h1>TaskyXPz</h1>
+
+    <div class="xp-box">
+      <p>XP da semana: <strong id="xpSemana">0</strong> / 100</p>
+      <div class="barra">
+        <div id="barraSemana" class="barra-preenchida"></div>
+      </div>
+    </div>
+
+    <div class="nova-tarefa">
+      <input id="campoTarefa" type="text" placeholder="Qual é a sua próxima tarefa?">
+      <button id="botaoAdicionar">Adicionar</button>
+    </div>
+
+    <ul id="listaTarefas"></ul>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
