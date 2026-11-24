@@ -1,75 +1,96 @@
-/* ===== Tokens de design (cores e medidas) ===== */
+/* ===== Tokens de design ===== */
 :root {
-  --bg: #0d0f1a;
-  --surface: #161a2e;
-  --border: #2a2d45;
+  --bg: #0b0d17;
+  --surface: #151933;
+  --border: #2a2d55;
   --text: #e8e8f0;
+  --muted: #8d90b3;
   --primary: #8b5cf6;
-  --secondary: #6366f1;
+  --secondary: #22d3ee;
   --danger: #ef4444;
-  --radius: 12px;
+  --radius: 14px;
+  --font: "Space Grotesk", "Segoe UI", system-ui, Arial, sans-serif;
 }
 
-/* ===== Base ===== */
+/* Temas: mudam só as cores de destaque */
+:root[data-tema="azul"]  { --primary: #38bdf8; --secondary: #6366f1; }
+:root[data-tema="verde"] { --primary: #34d399; --secondary: #a3e635; }
+:root[data-tema="rosa"]  { --primary: #f472b6; --secondary: #fb923c; }
+
 * {
   box-sizing: border-box;
 }
 
+/* ===== Base ===== */
 body {
-  font-family: Arial, sans-serif;
-  background: var(--bg);
+  margin: 0;
+  min-height: 100vh;
+  font-family: var(--font);
   color: var(--text);
+  background:
+    radial-gradient(circle at 15% 0%, color-mix(in srgb, var(--primary) 25%, transparent), transparent 45%),
+    radial-gradient(circle at 85% 100%, color-mix(in srgb, var(--secondary) 18%, transparent), transparent 45%),
+    var(--bg);
   display: flex;
   justify-content: center;
-  padding: 40px 16px;
+  padding: 48px 16px;
 }
 
 main {
   width: 100%;
-  max-width: 480px;
+  max-width: 520px;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ===== Topo e temas ===== */
+.topo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 24px;
 }
 
 h1 {
-  color: var(--primary);
-  text-shadow: 0 0 24px color-mix(in srgb, var(--primary) 50%, transparent);
+  margin: 0;
+  font-size: 2.4rem;
+  letter-spacing: -1px;
+  background: linear-gradient(90deg, var(--primary), var(--secondary));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
-/* ===== Botões e campos ===== */
-button {
-  padding: 12px 18px;
-  border: none;
-  border-radius: var(--radius);
-  background: var(--secondary);
-  color: white;
-  cursor: pointer;
-  transition: transform 0.15s, background 0.2s;
-}
-
-button:hover {
-  background: var(--primary);
-  transform: translateY(-2px);
-}
-
-input {
-  flex: 1;
-  padding: 12px;
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  background: var(--surface);
-  color: white;
-}
-
-/* Foco visível para quem usa teclado */
-button:focus-visible,
-input:focus-visible {
-  outline: 2px solid var(--primary);
-  outline-offset: 2px;
-}
-
-.nova-tarefa {
+.temas {
   display: flex;
   gap: 8px;
-  margin-bottom: 20px;
+}
+
+.tema {
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border-radius: 50%;
+  border: 2px solid var(--border);
+  box-shadow: none;
+}
+
+.tema[data-tema="roxo"]  { background: #8b5cf6; }
+.tema[data-tema="azul"]  { background: #38bdf8; }
+.tema[data-tema="verde"] { background: #34d399; }
+.tema[data-tema="rosa"]  { background: #f472b6; }
+
+.tema[aria-pressed="true"] {
+  border-color: var(--text);
+  transform: scale(1.15);
 }
 
 /* ===== Caixa de XP ===== */
@@ -77,16 +98,44 @@ input:focus-visible {
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  padding: 14px;
+  padding: 18px;
   margin-bottom: 20px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.35);
+}
+
+.xp-linha {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 10px;
+}
+
+.nivel {
+  font-size: 1.1rem;
+  color: var(--muted);
+}
+
+.nivel strong {
+  font-size: 2rem;
+  color: var(--primary);
+}
+
+.xp-total {
+  color: var(--muted);
+  font-size: 0.9rem;
 }
 
 .xp-box p {
-  margin: 0 0 10px;
+  margin: 0 0 12px;
+  color: var(--muted);
+}
+
+.xp-box p strong {
+  color: var(--text);
 }
 
 .barra {
-  height: 10px;
+  height: 12px;
   background: var(--border);
   border-radius: 999px;
   overflow: hidden;
@@ -97,13 +146,60 @@ input:focus-visible {
   width: 0%;
   background: linear-gradient(90deg, var(--primary), var(--secondary));
   border-radius: 999px;
-  transition: width 0.4s;
+  box-shadow: 0 0 14px var(--primary);
+  transition: width 0.5s ease;
+}
+
+/* ===== Campo e botões ===== */
+.nova-tarefa {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+input {
+  flex: 1;
+  min-width: 0;
+  padding: 14px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: var(--text);
+  font: inherit;
+}
+
+input::placeholder {
+  color: var(--muted);
+}
+
+button {
+  padding: 14px 20px;
+  border: none;
+  border-radius: var(--radius);
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  color: #0b0d17;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.15s, box-shadow 0.2s;
+}
+
+button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px color-mix(in srgb, var(--primary) 45%, transparent);
+}
+
+button:focus-visible,
+input:focus-visible {
+  outline: 2px solid var(--secondary);
+  outline-offset: 2px;
 }
 
 /* ===== Lista de tarefas ===== */
 ul {
   list-style: none;
   padding: 0;
+  margin: 0;
 }
 
 li {
@@ -111,8 +207,8 @@ li {
   align-items: center;
   gap: 8px;
   background: var(--surface);
-  padding: 14px;
-  margin-bottom: 8px;
+  padding: 12px 14px;
+  margin-bottom: 10px;
   border: 1px solid var(--border);
   border-radius: var(--radius);
   transition: transform 0.2s, border-color 0.2s;
@@ -125,21 +221,60 @@ li:hover {
 
 li span {
   flex: 1;
+  overflow-wrap: anywhere;
 }
 
 li button {
-  padding: 8px 12px;
+  width: 36px;
+  height: 36px;
+  padding: 0;
   background: var(--border);
+  color: var(--text);
+  font-size: 1rem;
+  line-height: 1;
 }
 
-li button:last-child:hover {
+li button:hover {
+  background: var(--primary);
+  color: #0b0d17;
+  box-shadow: none;
+}
+
+li button.excluir:hover {
   background: var(--danger);
+  color: white;
 }
 
 li.concluida {
-  opacity: 0.5;
+  opacity: 0.55;
 }
 
 li.concluida span {
   text-decoration: line-through;
+}
+
+li.vazio {
+  justify-content: center;
+  text-align: center;
+  color: var(--muted);
+  border-style: dashed;
+  padding: 28px 16px;
+}
+
+li.vazio:hover {
+  transform: none;
+  border-color: var(--border);
+}
+
+/* ===== Celular e movimento reduzido ===== */
+@media (max-width: 480px) {
+  h1 {
+    font-size: 1.9rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+  }
 }
