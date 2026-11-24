@@ -3,22 +3,40 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="TaskyXPz: gerenciador de tarefas gamificado. Conclua tarefas, ganhe XP e suba de nível.">
   <title>TaskyXPz</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E⚡%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <main>
-    <h1>TaskyXPz</h1>
+    <header class="topo">
+      <h1>TaskyXPz</h1>
+      <div class="temas" role="group" aria-label="Cor do tema">
+        <button class="tema" data-tema="roxo" aria-label="Tema roxo" aria-pressed="false"></button>
+        <button class="tema" data-tema="azul" aria-label="Tema azul" aria-pressed="false"></button>
+        <button class="tema" data-tema="verde" aria-label="Tema verde" aria-pressed="false"></button>
+        <button class="tema" data-tema="rosa" aria-label="Tema rosa" aria-pressed="false"></button>
+      </div>
+    </header>
 
-    <div class="xp-box">
-      <p>XP da semana: <strong id="xpSemana">0</strong> / 100</p>
-      <div class="barra">
+    <section class="xp-box" aria-label="Progresso de XP">
+      <div class="xp-linha">
+        <span class="nivel">Nível <strong id="nivel">1</strong></span>
+        <span class="xp-total"><span id="xpTotal">0</span> XP no total</span>
+      </div>
+      <p>Meta da semana: <strong id="xpSemana">0</strong> / <span id="metaSemana">100</span> XP</p>
+      <div class="barra" role="progressbar" aria-label="Meta semanal" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="barraAcessivel">
         <div id="barraSemana" class="barra-preenchida"></div>
       </div>
-    </div>
+    </section>
 
     <div class="nova-tarefa">
-      <input id="campoTarefa" type="text" placeholder="Qual é a sua próxima tarefa?">
+      <label for="campoTarefa" class="sr-only">Nova tarefa</label>
+      <input id="campoTarefa" type="text" maxlength="80" placeholder="Qual é a sua próxima tarefa?" autocomplete="off">
       <button id="botaoAdicionar">Adicionar</button>
     </div>
 
