@@ -1,7 +1,24 @@
+/* ===== Tokens de design (cores e medidas) ===== */
+:root {
+  --bg: #0d0f1a;
+  --surface: #161a2e;
+  --border: #2a2d45;
+  --text: #e8e8f0;
+  --primary: #8b5cf6;
+  --secondary: #6366f1;
+  --danger: #ef4444;
+  --radius: 12px;
+}
+
+/* ===== Base ===== */
+* {
+  box-sizing: border-box;
+}
+
 body {
   font-family: Arial, sans-serif;
-  background: #0d0f1a;
-  color: #e8e8f0;
+  background: var(--bg);
+  color: var(--text);
   display: flex;
   justify-content: center;
   padding: 40px 16px;
@@ -13,7 +30,40 @@ main {
 }
 
 h1 {
-  color: #8b5cf6;
+  color: var(--primary);
+  text-shadow: 0 0 24px color-mix(in srgb, var(--primary) 50%, transparent);
+}
+
+/* ===== Botões e campos ===== */
+button {
+  padding: 12px 18px;
+  border: none;
+  border-radius: var(--radius);
+  background: var(--secondary);
+  color: white;
+  cursor: pointer;
+  transition: transform 0.15s, background 0.2s;
+}
+
+button:hover {
+  background: var(--primary);
+  transform: translateY(-2px);
+}
+
+input {
+  flex: 1;
+  padding: 12px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: white;
+}
+
+/* Foco visível para quem usa teclado */
+button:focus-visible,
+input:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
 }
 
 .nova-tarefa {
@@ -22,79 +72,11 @@ h1 {
   margin-bottom: 20px;
 }
 
-input {
-  flex: 1;
-  padding: 12px;
-  border: 1px solid #2a2d45;
-  border-radius: 12px;
-  background: #161a2e;
-  color: white;
-}
-
-button {
-  padding: 12px 18px;
-  border: none;
-  border-radius: 12px;
-  background: #6366f1;
-  color: white;
-  cursor: pointer;
-}
-
-ul {
-  list-style: none;
-  padding: 0;
-}
-
-li {
-  background: #161a2e;
-  padding: 14px;
-  margin-bottom: 8px;
-  border-radius: 12px;
-}button {
-  transition: transform 0.15s, background 0.2s;
-}
-
-button:hover {
-  background: #8b5cf6;
-  transform: translateY(-2px);
-}
-
-li {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  border: 1px solid #2a2d45;
-  transition: transform 0.2s, border-color 0.2s;
-}
-
-li:hover {
-  transform: translateX(4px);
-  border-color: #8b5cf6;
-}
-
-li span {
-  flex: 1;
-}
-
-li button {
-  padding: 8px 12px;
-  background: #2a2d45;
-}
-
-li button:last-child:hover {
-  background: #ef4444;
-}
-
-li.concluida {
-  opacity: 0.5;
-}
-
-li.concluida span {
-  text-decoration: line-through;
-}.xp-box {
-  background: #161a2e;
-  border: 1px solid #2a2d45;
-  border-radius: 12px;
+/* ===== Caixa de XP ===== */
+.xp-box {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
   padding: 14px;
   margin-bottom: 20px;
 }
@@ -105,7 +87,7 @@ li.concluida span {
 
 .barra {
   height: 10px;
-  background: #2a2d45;
+  background: var(--border);
   border-radius: 999px;
   overflow: hidden;
 }
@@ -113,7 +95,51 @@ li.concluida span {
 .barra-preenchida {
   height: 100%;
   width: 0%;
-  background: linear-gradient(90deg, #8b5cf6, #6366f1);
+  background: linear-gradient(90deg, var(--primary), var(--secondary));
   border-radius: 999px;
   transition: width 0.4s;
+}
+
+/* ===== Lista de tarefas ===== */
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--surface);
+  padding: 14px;
+  margin-bottom: 8px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  transition: transform 0.2s, border-color 0.2s;
+}
+
+li:hover {
+  transform: translateX(4px);
+  border-color: var(--primary);
+}
+
+li span {
+  flex: 1;
+}
+
+li button {
+  padding: 8px 12px;
+  background: var(--border);
+}
+
+li button:last-child:hover {
+  background: var(--danger);
+}
+
+li.concluida {
+  opacity: 0.5;
+}
+
+li.concluida span {
+  text-decoration: line-through;
 }
